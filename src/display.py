@@ -10,6 +10,6 @@ class Display:
         self.car_park = car_park
 
     def __str__(self):
-        return "Display " + str(self.id_)  + ": " + self.message
+        return f'Display {str(self.id_)}: {self.message}'
 
 print(Display(2,"Welcome stranger!")) # test

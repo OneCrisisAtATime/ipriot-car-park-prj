@@ -7,7 +7,7 @@ class Sensor:
         self.car_park = car_park
 
     def __str__(self):
-        return "Sensor " + str(self.id_) + ": " + str(self.is_active)
+        return f'Sensor {str(self.id_)}: {str(self.is_active)}'
 
 class EntrySensor(Sensor):
     pass
