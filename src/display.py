@@ -12,4 +12,8 @@ class Display:
     def __str__(self):
         return f'Display {str(self.id_)}: {self.message}'
 
+    def update(self, data):
+        for key, value in data.items():
+            print(f'{key}: {value}')
+
 print(Display(2,"Welcome stranger!")) # test
