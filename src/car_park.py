@@ -3,7 +3,7 @@ from sensor import Sensor
 from display import Display
 
 DEFAULT_LOCATION = "unknown"
-DEFAULT_CAPACITY = 0
+DEFAULT_CAPACITY = 1200
 DEFAULT_TEMPERATURE = 25
 
 
@@ -16,7 +16,7 @@ class CarPark:
         self.sensors = sensors or []
         self.displays = displays or []
 
-        self.disabled_capacity = self.total_disabled_bays() or 0
+        self.disabled_capacity = self.calculate_disabled_bays() or 0
 
     def __str__(self):
         # return string containing car parks location and capacity
@@ -54,18 +54,14 @@ class CarPark:
     def available_disability_bays(self):
             return max(0, self.disabled_capacity - len(self.plates))
 
-    def total_disabled_bays(self):
+    def calculate_disabled_bays(self):
         """Assigns capacity of disabled parking bays based on the Australian Disability Network guidelines for accessible parking."""
         ### Source: https://australiandisabilitynetwork.org.au/DFD/dfd-06-05-car-parking.html ###
 
-        if self.capacity < 1000: # add 1 disability park bay for 50 standard bays.
-            self.disabled_capacity = math.ceil(self.capacity / 50)
-            return self.disabled_capacity
-        elif self.capacity >= 1000: # adds 1 additional bay for every 100 bays beyond the first 1000.
-            self.disabled_capacity = math.ceil(10 + (100 / (self.capacity - 1000)))
-            return self.disabled_capacity
+        if self.capacity < 1000:
+            return math.ceil(self.capacity / 50)
+        return math.ceil(10 + (100 / (self.capacity - 1000)))
 
-
-print(CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).displays) # test #
+#print(CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).displays) # test #
 #CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY).
 #print(f"Disabled parking capacity: {CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).disabled_capacity}")# test 2
