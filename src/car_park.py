@@ -52,10 +52,7 @@ class CarPark:
 
     @property
     def available_disability_bays(self):
-        if len(self.plates) >= self.disabled_capacity:
-            return 0
-        elif len(self.plates) < self.disabled_capacity:
-            return self.disabled_capacity - len(self.plates)
+            return max(0, self.disabled_capacity - len(self.plates))
 
     def total_disabled_bays(self):
         """Assigns capacity of disabled parking bays based on the Australian Disability Network guidelines for accessible parking."""
