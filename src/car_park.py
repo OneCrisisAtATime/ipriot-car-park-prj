@@ -48,10 +48,7 @@ class CarPark:
 
     @property
     def available_bays(self):
-        if len(self.plates) >= self.capacity:
-            return 0
-        elif len(self.plates) < self.capacity:
-            return self.capacity - len(self.plates)
+            return max(0, self.capacity - len(self.plates))
 
     @property
     def available_disability_bays(self):
