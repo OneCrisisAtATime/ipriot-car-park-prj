@@ -8,8 +8,8 @@ DEFAULT_TEMPERATURE = 25
 
 
 class CarPark:
-    def __init__(self, locations, capacity, temperature, disabled_capacity=None, plates=None, sensors=None, displays=None):
-        self.locations = locations
+    def __init__(self, location, capacity, temperature,disabled_capacity=None, plates=None, sensors=None, displays=None):
+        self.location = location
         self.capacity = capacity
         self.temperature = temperature
         self.plates = plates or []
@@ -20,7 +20,7 @@ class CarPark:
 
     def __str__(self):
         # return string containing car parks location and capacity
-        return f'Car park at {self.locations}, with {str(self.capacity)} bays.'
+        return f'Car park at {self.location}, with {str(self.capacity)} bays total. {str(self.disabled_capacity)} of which are disability bays.'
 
     def register(self, component):
         """Registers components of a car park"""
@@ -41,7 +41,7 @@ class CarPark:
         self.update_displays()
 
     def update_displays(self):
-        data = {"total available bays": self.available_bays, "available disabled bays": self.available_disability_bays, "temperature": self.temperature}
+        data = {"total available bays": self.available_bays, "available disabled bays": self.available_disability_bays} # , "temperature": self.temperature
 
         for display in self.displays:
             display.update(data)
@@ -72,6 +72,6 @@ class CarPark:
             return self.disabled_capacity
 
 
-print(CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).displays) # test
+print(CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).displays) # test #
 #CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY).
 #print(f"Disabled parking capacity: {CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).disabled_capacity}")# test 2
