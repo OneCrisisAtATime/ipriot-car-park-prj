@@ -38,7 +38,7 @@ class CarPark:
 
     def _log_car_activity(self, plate, action):
         with self.log_file.open("a") as f:
-            f.write(f"{plate} {action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
+            f.write(f"{plate} {action} at {datetime.now()}\n")
 
     def add_car(self, plate):
         self.plates.append(plate)
