@@ -1,4 +1,3 @@
-
 class Display:
 
     def __init__(self, id_, car_park, message="", is_on=False, ):
@@ -14,6 +13,3 @@ class Display:
 
     def __str__(self):
         return f'Display {str(self.id_)}: {self.message}'
-
-
-#print(Display(2, "random park","Welcome to the car park.")) # test

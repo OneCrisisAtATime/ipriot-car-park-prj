@@ -34,5 +34,3 @@ class ExitSensor(Sensor):
     def _scan_plate(self):
         """Uses 'random.choice' instead of 'random.randint' to prevent bugs caused by the absence of a real plate sensor."""
         return random.choice(self.car_park.plates)
-
-print(ExitSensor(5, True).__str__()) # test
