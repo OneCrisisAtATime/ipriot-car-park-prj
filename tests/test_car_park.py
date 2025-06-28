@@ -1,4 +1,6 @@
 import unittest
+from unittest import mock
+import json
 from pathlib import Path
 from car_park import CarPark
 
@@ -33,6 +35,7 @@ class TestCarPark(unittest.TestCase):
             self.car_park.add_car(f"FAKE-{i}")
          self.assertEqual(self.car_park.available_bays, 0)
          self.car_park.add_car("FAKE-100")
+
          # Overfilling the car park should not change the number of available bays
          self.assertEqual(self.car_park.available_bays, 0)
 
@@ -73,6 +76,41 @@ class TestCarPark(unittest.TestCase):
          self.assertIn("NEW-001", last_line) # check plate exited
          self.assertIn("exited", last_line) # check description
          self.assertIn("\n", last_line) # check entry has a new line
+
+      def test_car_park_write_to_config_file(self):
+         config_path = Path("config.json")
+         self.car_park.write_config(config_path)
+
+         with config_path.open() as f:
+            config_data = json.load(f)
+
+         self.assertEqual(self.car_park.location, config_data["location"])
+         self.assertEqual(self.car_park.capacity, config_data["capacity"])
+         self.assertEqual(self.car_park.temperature, config_data["temperature"])
+         self.assertEqual(f'{self.car_park.log_file}', config_data["log_file"])
+
+         config_path.unlink()  # Clean up
+
+      def test_car_park_initialized_from_config_file(self):
+         config_data = {
+            "location": "456 Main Street",
+            "capacity": 200,
+            "temperature": 25,
+            "log_file": "test_log.txt"
+         }
+
+         config_path = Path("config.json")
+         with config_path.open("w") as f:
+            json.dump(config_data, f)
+
+         car_park = CarPark.from_config(config_path)
+
+         self.assertEqual(car_park.location, config_data["location"])
+         self.assertEqual(car_park.capacity, config_data["capacity"])
+         self.assertEqual(car_park.temperature, config_data["temperature"])
+         self.assertEqual(car_park.log_file.name, f'{config_data["log_file"]}')
+
+         config_path.unlink()  # Clean up
 
 if __name__ == "__main__":
    unittest.main()
