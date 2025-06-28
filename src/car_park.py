@@ -4,6 +4,8 @@ from display import Display
 from pathlib import Path
 from datetime import datetime
 import json
+import random
+import string
 
 DEFAULT_LOCATION = "unknown"
 DEFAULT_CAPACITY = 1200
@@ -28,7 +30,7 @@ class CarPark:
 
     def __str__(self):
         # return string containing car parks location and capacity
-        return f'Car park at {self.location}, with {str(self.capacity)} bays total. {str(self.disabled_capacity)} of which are disability bays.'
+        return f'Car park at {self.location}, with {str(self.capacity)} bays total. Including {str(self.disabled_capacity)} disability bays. And has a internal temperature of {str(self.temperature)} Celsius.'
 
     def register(self, component):
         """Registers components of a car park"""
@@ -59,6 +61,13 @@ class CarPark:
 
         for display in self.displays:
             display.update(data)
+
+    def generate_plate(self):
+        """Randomly generates a 6-character number plate."""
+        chars = string.ascii_uppercase + string.digits  # creates a pool of uppercase letters and numbers
+        first_part = ''.join(random.choices(chars, k=3))
+        second_part = ''.join(random.choices(chars, k=3))
+        return f"{first_part}-{second_part}"
 
     @property
     def available_bays(self):

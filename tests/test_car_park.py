@@ -1,5 +1,5 @@
 import unittest
-from unittest import mock
+from unittest import mock # < < < R E M O V E
 import json
 from pathlib import Path
 from car_park import CarPark
@@ -62,7 +62,7 @@ class TestCarPark(unittest.TestCase):
          new_carpark = CarPark("123 Example Street", 100, 30, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
          self.car_park.add_car("NEW-001")
          with self.car_park.log_file.open() as f:
-            last_line = f.readlines()[-1]
+            last_line = f.readlines()[+1]
          self.assertIn("NEW-001", last_line) # check plate entered
          self.assertIn("entered", last_line) # check description
          self.assertIn("\n", last_line) # check entry has a new line
