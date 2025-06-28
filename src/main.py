@@ -1,5 +1,5 @@
 from car_park import CarPark
-from sensor import Sensor, EntrySensor, ExitSensor
+from sensor import EntrySensor, ExitSensor
 from display import Display
 import random
 
@@ -9,7 +9,9 @@ def main():
     entry_sensor = EntrySensor(1, True, carpark)
     exit_sensor = ExitSensor(2, True, carpark)
 
-    display = Display(1, "welcome to Moondalup", True, carpark)
+    display = Display(1, carpark,"welcome to Moondalup", True)
+    print(display)
+
     for c in range(10):
         entry_sensor.update_car_park(carpark.generate_plate())
 

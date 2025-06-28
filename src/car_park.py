@@ -99,7 +99,3 @@ class CarPark:
         with config_file.open() as f:
             config = json.load(f)
         return cls(config["location"], config["capacity"], config["temperature"], log_file=config["log_file"])
-
-#print(CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).displays) # test #
-#CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY).
-#print(f"Disabled parking capacity: {CarPark(DEFAULT_LOCATION, DEFAULT_CAPACITY, DEFAULT_TEMPERATURE).disabled_capacity}")# test 2
